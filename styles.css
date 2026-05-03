@@ -1,0 +1,509 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    background: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #fff;
+    padding: 2rem;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+.main-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 280px;
+    background: #f8f9fa;
+    border-right: 1px solid #e9ecef;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    padding: 1.5rem;
+    background: #fff;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.sidebar-header h2 {
+    font-size: 1.2rem;
+    color: #495057;
+}
+
+.formula-category {
+    border-bottom: 1px solid #e9ecef;
+}
+
+.category-title {
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #495057;
+    transition: background 0.2s;
+}
+
+.category-title:hover {
+    background: #e9ecef;
+}
+
+.category-icon {
+    margin-right: 0.5rem;
+}
+
+.toggle-icon {
+    font-size: 0.8rem;
+    transition: transform 0.3s;
+}
+
+.formula-list {
+    list-style: none;
+    background: #fff;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.formula-list.expanded {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.formula-item {
+    padding: 0.8rem 1.5rem 0.8rem 2.5rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #6c757d;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.formula-item:hover {
+    background: #f8f9fa;
+    color: #495057;
+}
+
+.formula-item.active {
+    background: #e7f3ff;
+    color: #0066cc;
+    border-left-color: #0066cc;
+}
+
+.content-area {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    background: #f8f9fa;
+}
+
+.formula-info {
+    background: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.formula-info h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #1a1a2e;
+}
+
+.formula-description {
+    color: #6c757d;
+    line-height: 1.8;
+}
+
+.formula-description ul {
+    margin-top: 1rem;
+    padding-left: 1.5rem;
+}
+
+.formula-description li {
+    margin-bottom: 0.5rem;
+}
+
+.calculation-section {
+    background: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.calculation-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: #1a1a2e;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.input-area {
+    margin-bottom: 1.5rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #495057;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.matrix-input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.matrix-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.matrix-input input {
+    width: 80px;
+    text-align: center;
+}
+
+.matrix-size {
+    margin-bottom: 1rem;
+}
+
+.matrix-size select {
+    width: auto;
+    margin-right: 1rem;
+}
+
+.calculate-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.calculate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.calculate-btn:active {
+    transform: translateY(0);
+}
+
+.result-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e9ecef;
+}
+
+.result-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #1a1a2e;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.result-display {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    overflow-x: auto;
+}
+
+.result-display .math-result {
+    font-size: 1.3rem;
+    color: #0066cc;
+    font-weight: 600;
+}
+
+.steps-display {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid #e9ecef;
+}
+
+.steps-display h4 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #495057;
+}
+
+.steps-content {
+    line-height: 1.8;
+    color: #6c757d;
+}
+
+.step-item {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.step-item::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #0066cc;
+    font-weight: bold;
+}
+
+.visualization-section {
+    background: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.visualization-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: #1a1a2e;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.visualization-controls {
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.viz-btn {
+    background: #fff;
+    color: #0066cc;
+    border: 1px solid #0066cc;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.viz-btn:hover {
+    background: #0066cc;
+    color: #fff;
+}
+
+.viz-btn.active {
+    background: #0066cc;
+    color: #fff;
+}
+
+.visualization-container {
+    width: 100%;
+    height: 500px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #adb5bd;
+    font-size: 1.1rem;
+}
+
+.footer {
+    background: #1a1a2e;
+    color: #adb5bd;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 1024px) {
+    .main-content {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        max-height: 300px;
+        border-right: none;
+        border-bottom: 1px solid #e9ecef;
+    }
+    
+    .content-area {
+        padding: 1.5rem;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 1.5rem;
+    }
+    
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .formula-info,
+    .calculation-section,
+    .visualization-section {
+        padding: 1.5rem;
+    }
+    
+    .matrix-input input {
+        width: 60px;
+        font-size: 0.9rem;
+    }
+    
+    .visualization-container {
+        height: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .content-area {
+        padding: 1rem;
+    }
+    
+    .formula-info,
+    .calculation-section,
+    .visualization-section {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .calculate-btn {
+        width: 100%;
+        padding: 1rem;
+    }
+    
+    .visualization-controls {
+        flex-direction: column;
+    }
+    
+    .viz-btn {
+        width: 100%;
+    }
+    
+    .visualization-container {
+        height: 300px;
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.error-message {
+    background: #fff3f3;
+    border: 1px solid #ffc9c9;
+    color: #c92a2a;
+    padding: 1rem;
+    border-radius: 5px;
+    margin: 1rem 0;
+}
+
+.success-message {
+    background: #f1f3f5;
+    border: 1px solid #a5d8ff;
+    color: #1864ab;
+    padding: 1rem;
+    border-radius: 5px;
+    margin: 1rem 0;
+}

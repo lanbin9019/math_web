@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学交互式计算与可视化演示</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.27.1/plotly.min.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>数学交互式计算与可视化演示</h1>
+            <p class="subtitle">线性代数 · 高等数学 · 计算过程展示 · 几何动态演示</p>
+        </header>
+        
+        <div class="main-content">
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h2>公式菜单</h2>
+                </div>
+                <div class="formula-category">
+                    <h3 class="category-title" data-category="linear-algebra">
+                        <span class="category-icon">📐</span> 线性代数
+                        <span class="toggle-icon">▼</span>
+                    </h3>
+                    <ul class="formula-list" id="linear-algebra-list">
+                        <li class="formula-item" data-formula="matrix-addition">矩阵加法</li>
+                        <li class="formula-item" data-formula="matrix-multiplication">矩阵乘法</li>
+                        <li class="formula-item" data-formula="matrix-determinant">行列式计算</li>
+                        <li class="formula-item" data-formula="matrix-inverse">矩阵求逆</li>
+                        <li class="formula-item" data-formula="matrix-transpose">矩阵转置</li>
+                        <li class="formula-item" data-formula="eigenvalues">特征值与特征向量</li>
+                        <li class="formula-item" data-formula="vector-dot">向量点积</li>
+                        <li class="formula-item" data-formula="vector-cross">向量叉积</li>
+                    </ul>
+                </div>
+                <div class="formula-category">
+                    <h3 class="category-title" data-category="calculus">
+                        <span class="category-icon">📊</span> 高等数学
+                        <span class="toggle-icon">▼</span>
+                    </h3>
+                    <ul class="formula-list" id="calculus-list">
+                        <li class="formula-item" data-formula="derivative">函数求导</li>
+                        <li class="formula-item" data-formula="integral">定积分</li>
+                        <li class="formula-item" data-formula="indefinite-integral">不定积分</li>
+                        <li class="formula-item" data-formula="limit">极限计算</li>
+                        <li class="formula-item" data-formula="series">级数求和</li>
+                        <li class="formula-item" data-formula="taylor">泰勒展开</li>
+                        <li class="formula-item" data-formula="function-plot">函数图像</li>
+                        <li class="formula-item" data-formula="3d-plot">3D曲面</li>
+                    </ul>
+                </div>
+            </aside>
+            
+            <main class="content-area">
+                <div class="formula-info">
+                    <h2 id="formula-title">欢迎使用数学交互式计算</h2>
+                    <div class="formula-description" id="formula-description">
+                        <p>请从左侧菜单选择一个数学公式开始计算与可视化演示。</p>
+                        <p>本系统支持：</p>
+                        <ul>
+                            <li>线性代数的矩阵运算、行列式、特征值等计算</li>
+                            <li>高等数学的微积分、极限、级数等运算</li>
+                            <li>实时计算过程展示与步骤解析</li>
+                            <li>动态几何可视化演示</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="calculation-section" id="calculation-section">
+                    <h3>计算区域</h3>
+                    <div class="input-area" id="input-area">
+                        <!-- 动态生成输入表单 -->
+                    </div>
+                    <button class="calculate-btn" id="calculate-btn">开始计算</button>
+                    
+                    <div class="result-section" id="result-section">
+                        <h3>计算结果</h3>
+                        <div class="result-display" id="result-display">
+                            <!-- 计算结果展示 -->
+                        </div>
+                        <div class="steps-display" id="steps-display">
+                            <h4>计算过程</h4>
+                            <div class="steps-content" id="steps-content">
+                                <!-- 计算过程展示 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visualization-section" id="visualization-section">
+                    <h3>可视化演示</h3>
+                    <div class="visualization-controls" id="visualization-controls">
+                        <!-- 可视化控制按钮 -->
+                    </div>
+                    <div class="visualization-container" id="visualization-container">
+                        <div class="placeholder" id="visualization-placeholder">
+                            <p>计算完成后将在此处显示动态可视化演示</p>
+                        </div>
+                        <div id="plotly-chart" style="width: 100%; height: 100%; display: none;"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        
+        <footer class="footer">
+            <p>数学交互式计算与可视化演示系统 © 2024</p>
+        </footer>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
