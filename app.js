@@ -885,9 +885,9 @@ const MathCalculus = {
                 
                 const evaluate = (expr, xVal) => {
                     try {
-                        let safeExpr = expr
-                            .replace(/x/g, `(${xVal})`)
-                            .replace(/\^/g, '**')
+                        let safeExpr = expr;
+                        
+                        safeExpr = safeExpr
                             .replace(/sin/g, 'Math.sin')
                             .replace(/cos/g, 'Math.cos')
                             .replace(/tan/g, 'Math.tan')
@@ -895,8 +895,18 @@ const MathCalculus = {
                             .replace(/ln/g, 'Math.log')
                             .replace(/exp/g, 'Math.exp')
                             .replace(/sqrt/g, 'Math.sqrt');
+                        
+                        safeExpr = safeExpr.replace(/(\d+)([x\(])/g, '$1*$2');
+                        safeExpr = safeExpr.replace(/([\)])([x\(])/g, '$1*$2');
+                        safeExpr = safeExpr.replace(/x\(/g, 'x*(');
+                        
+                        safeExpr = safeExpr.replace(/\^/g, '**');
+                        
+                        safeExpr = safeExpr.replace(/x/g, `(${xVal})`);
+                        
                         return eval(safeExpr);
                     } catch (e) {
+                        console.error('表达式计算错误:', expr, 'xVal=', xVal, 'error:', e);
                         return NaN;
                     }
                 };
@@ -930,9 +940,9 @@ const MathCalculus = {
                 
                 const evaluate = (expr, xVal) => {
                     try {
-                        let safeExpr = expr
-                            .replace(/x/g, `(${xVal})`)
-                            .replace(/\^/g, '**')
+                        let safeExpr = expr;
+                        
+                        safeExpr = safeExpr
                             .replace(/sin/g, 'Math.sin')
                             .replace(/cos/g, 'Math.cos')
                             .replace(/tan/g, 'Math.tan')
@@ -940,8 +950,18 @@ const MathCalculus = {
                             .replace(/ln/g, 'Math.log')
                             .replace(/exp/g, 'Math.exp')
                             .replace(/sqrt/g, 'Math.sqrt');
+                        
+                        safeExpr = safeExpr.replace(/(\d+)([x\(])/g, '$1*$2');
+                        safeExpr = safeExpr.replace(/([\)])([x\(])/g, '$1*$2');
+                        safeExpr = safeExpr.replace(/x\(/g, 'x*(');
+                        
+                        safeExpr = safeExpr.replace(/\^/g, '**');
+                        
+                        safeExpr = safeExpr.replace(/x/g, `(${xVal})`);
+                        
                         return eval(safeExpr);
                     } catch (e) {
+                        console.error('表达式计算错误:', expr, 'xVal=', xVal, 'error:', e);
                         return NaN;
                     }
                 };
@@ -1103,9 +1123,9 @@ const MathCalculus = {
                 
                 const evaluate = (expr, xVal) => {
                     try {
-                        let safeExpr = expr
-                            .replace(/x/g, `(${xVal})`)
-                            .replace(/\^/g, '**')
+                        let safeExpr = expr;
+                        
+                        safeExpr = safeExpr
                             .replace(/sin/g, 'Math.sin')
                             .replace(/cos/g, 'Math.cos')
                             .replace(/tan/g, 'Math.tan')
@@ -1113,8 +1133,18 @@ const MathCalculus = {
                             .replace(/ln/g, 'Math.log')
                             .replace(/exp/g, 'Math.exp')
                             .replace(/sqrt/g, 'Math.sqrt');
+                        
+                        safeExpr = safeExpr.replace(/(\d+)([x\(])/g, '$1*$2');
+                        safeExpr = safeExpr.replace(/([\)])([x\(])/g, '$1*$2');
+                        safeExpr = safeExpr.replace(/x\(/g, 'x*(');
+                        
+                        safeExpr = safeExpr.replace(/\^/g, '**');
+                        
+                        safeExpr = safeExpr.replace(/x/g, `(${xVal})`);
+                        
                         return eval(safeExpr);
                     } catch (e) {
+                        console.error('表达式计算错误:', expr, 'xVal=', xVal, 'error:', e);
                         return NaN;
                     }
                 };
@@ -1410,9 +1440,9 @@ const MathCalculus = {
                 
                 const evaluate = (expr, xVal) => {
                     try {
-                        let safeExpr = expr
-                            .replace(/x/g, `(${xVal})`)
-                            .replace(/\^/g, '**')
+                        let safeExpr = expr;
+                        
+                        safeExpr = safeExpr
                             .replace(/sin/g, 'Math.sin')
                             .replace(/cos/g, 'Math.cos')
                             .replace(/tan/g, 'Math.tan')
@@ -1420,8 +1450,18 @@ const MathCalculus = {
                             .replace(/ln/g, 'Math.log')
                             .replace(/exp/g, 'Math.exp')
                             .replace(/sqrt/g, 'Math.sqrt');
+                        
+                        safeExpr = safeExpr.replace(/(\d+)([x\(])/g, '$1*$2');
+                        safeExpr = safeExpr.replace(/([\)])([x\(])/g, '$1*$2');
+                        safeExpr = safeExpr.replace(/x\(/g, 'x*(');
+                        
+                        safeExpr = safeExpr.replace(/\^/g, '**');
+                        
+                        safeExpr = safeExpr.replace(/x/g, `(${xVal})`);
+                        
                         return eval(safeExpr);
                     } catch (e) {
+                        console.error('表达式计算错误:', expr, 'xVal=', xVal, 'error:', e);
                         return NaN;
                     }
                 };
@@ -1929,9 +1969,9 @@ const MathCalculus = {
                 
                 const evaluate = (expr, xVal) => {
                     try {
-                        let safeExpr = expr
-                            .replace(/x/g, `(${xVal})`)
-                            .replace(/\^/g, '**')
+                        let safeExpr = expr;
+                        
+                        safeExpr = safeExpr
                             .replace(/sin/g, 'Math.sin')
                             .replace(/cos/g, 'Math.cos')
                             .replace(/tan/g, 'Math.tan')
@@ -1939,8 +1979,18 @@ const MathCalculus = {
                             .replace(/ln/g, 'Math.log')
                             .replace(/exp/g, 'Math.exp')
                             .replace(/sqrt/g, 'Math.sqrt');
+                        
+                        safeExpr = safeExpr.replace(/(\d+)([x\(])/g, '$1*$2');
+                        safeExpr = safeExpr.replace(/([\)])([x\(])/g, '$1*$2');
+                        safeExpr = safeExpr.replace(/x\(/g, 'x*(');
+                        
+                        safeExpr = safeExpr.replace(/\^/g, '**');
+                        
+                        safeExpr = safeExpr.replace(/x/g, `(${xVal})`);
+                        
                         return eval(safeExpr);
                     } catch (e) {
+                        console.error('表达式计算错误:', expr, 'xVal=', xVal, 'error:', e);
                         return NaN;
                     }
                 };
@@ -1978,9 +2028,9 @@ const MathCalculus = {
                 
                 const evaluate = (expr, xVal) => {
                     try {
-                        let safeExpr = expr
-                            .replace(/x/g, `(${xVal})`)
-                            .replace(/\^/g, '**')
+                        let safeExpr = expr;
+                        
+                        safeExpr = safeExpr
                             .replace(/sin/g, 'Math.sin')
                             .replace(/cos/g, 'Math.cos')
                             .replace(/tan/g, 'Math.tan')
@@ -1988,8 +2038,18 @@ const MathCalculus = {
                             .replace(/ln/g, 'Math.log')
                             .replace(/exp/g, 'Math.exp')
                             .replace(/sqrt/g, 'Math.sqrt');
+                        
+                        safeExpr = safeExpr.replace(/(\d+)([x\(])/g, '$1*$2');
+                        safeExpr = safeExpr.replace(/([\)])([x\(])/g, '$1*$2');
+                        safeExpr = safeExpr.replace(/x\(/g, 'x*(');
+                        
+                        safeExpr = safeExpr.replace(/\^/g, '**');
+                        
+                        safeExpr = safeExpr.replace(/x/g, `(${xVal})`);
+                        
                         return eval(safeExpr);
                     } catch (e) {
+                        console.error('表达式计算错误:', expr, 'xVal=', xVal, 'error:', e);
                         return NaN;
                     }
                 };
