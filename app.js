@@ -8,8 +8,8 @@ const MathCalculus = {
             formula: '$$A + B = \\begin{pmatrix} a_{11} & a_{12} \\\\ a_{21} & a_{22} \\end{pmatrix} + \\begin{pmatrix} b_{11} & b_{12} \\\\ b_{21} & b_{22} \\end{pmatrix} = \\begin{pmatrix} a_{11}+b_{11} & a_{12}+b_{12} \\\\ a_{21}+b_{21} & a_{22}+b_{22} \\end{pmatrix}$$',
             parameters: [
                 { name: 'matrixSize', type: 'select', options: ['2x2', '3x3', '4x4'], label: '矩阵维度', default: '2x2' },
-                { name: 'matrixA', type: 'matrix', label: '矩阵 A' },
-                { name: 'matrixB', type: 'matrix', label: '矩阵 B' }
+                { name: 'matrixA', type: 'matrix-simple', label: '矩阵 A' },
+                { name: 'matrixB', type: 'matrix-simple', label: '矩阵 B' }
             ],
             calculate: function(params) {
                 const size = parseInt(params.matrixSize.split('x')[0]);
@@ -39,38 +39,33 @@ const MathCalculus = {
                 return {
                     result: result,
                     steps: steps,
-                    latex: this.matrixToLatex(result)
+                    latex: MathCalculus.matrixToLatex(result)
                 };
             },
             visualize: function(result, params) {
                 const size = parseInt(params.matrixSize.split('x')[0]);
-                const trace = {
-                    x: [],
-                    y: [],
-                    z: [],
-                    type: 'heatmap',
-                    colorscale: 'Viridis',
-                    showscale: true
-                };
                 
+                const xValues = [];
+                const yValues = [];
                 for (let i = 0; i < size; i++) {
-                    for (let j = 0; j < size; j++) {
-                        trace.x.push(j + 1);
-                        trace.y.push(size - i);
-                        trace.z.push(result[i][j]);
-                    }
+                    xValues.push(i + 1);
+                    yValues.push(size - i);
                 }
                 
-                const layout = {
-                    title: '矩阵加法结果热力图',
-                    xaxis: { title: '列索引', dtick: 1 },
-                    yaxis: { title: '行索引', dtick: 1 },
-                    annotations: []
+                const trace = {
+                    z: result,
+                    x: xValues,
+                    y: yValues,
+                    type: 'heatmap',
+                    colorscale: 'Viridis',
+                    showscale: true,
+                    name: '结果矩阵'
                 };
                 
+                const annotations = [];
                 for (let i = 0; i < size; i++) {
                     for (let j = 0; j < size; j++) {
-                        layout.annotations.push({
+                        annotations.push({
                             x: j + 1,
                             y: size - i,
                             text: result[i][j].toString(),
@@ -79,6 +74,14 @@ const MathCalculus = {
                         });
                     }
                 }
+                
+                const layout = {
+                    title: '矩阵加法结果热力图',
+                    xaxis: { title: '列索引', dtick: 1 },
+                    yaxis: { title: '行索引', dtick: 1 },
+                    annotations: annotations,
+                    showlegend: true
+                };
                 
                 return { data: [trace], layout: layout };
             }
@@ -91,8 +94,8 @@ const MathCalculus = {
             formula: '$$C = A \\times B = \\begin{pmatrix} \\sum_{k=1}^n a_{1k}b_{k1} & \\sum_{k=1}^n a_{1k}b_{k2} \\\\ \\sum_{k=1}^n a_{2k}b_{k1} & \\sum_{k=1}^n a_{2k}b_{k2} \\end{pmatrix}$$',
             parameters: [
                 { name: 'matrixSize', type: 'select', options: ['2x2', '3x3'], label: '矩阵维度', default: '2x2' },
-                { name: 'matrixA', type: 'matrix', label: '矩阵 A' },
-                { name: 'matrixB', type: 'matrix', label: '矩阵 B' }
+                { name: 'matrixA', type: 'matrix-simple', label: '矩阵 A' },
+                { name: 'matrixB', type: 'matrix-simple', label: '矩阵 B' }
             ],
             calculate: function(params) {
                 const size = parseInt(params.matrixSize.split('x')[0]);
@@ -126,38 +129,33 @@ const MathCalculus = {
                 return {
                     result: result,
                     steps: steps,
-                    latex: this.matrixToLatex(result)
+                    latex: MathCalculus.matrixToLatex(result)
                 };
             },
             visualize: function(result, params) {
                 const size = parseInt(params.matrixSize.split('x')[0]);
-                const trace = {
-                    x: [],
-                    y: [],
-                    z: [],
-                    type: 'heatmap',
-                    colorscale: 'Plasma',
-                    showscale: true
-                };
                 
+                const xValues = [];
+                const yValues = [];
                 for (let i = 0; i < size; i++) {
-                    for (let j = 0; j < size; j++) {
-                        trace.x.push(j + 1);
-                        trace.y.push(size - i);
-                        trace.z.push(result[i][j]);
-                    }
+                    xValues.push(i + 1);
+                    yValues.push(size - i);
                 }
                 
-                const layout = {
-                    title: '矩阵乘法结果热力图',
-                    xaxis: { title: '列索引', dtick: 1 },
-                    yaxis: { title: '行索引', dtick: 1 },
-                    annotations: []
+                const trace = {
+                    z: result,
+                    x: xValues,
+                    y: yValues,
+                    type: 'heatmap',
+                    colorscale: 'Plasma',
+                    showscale: true,
+                    name: '结果矩阵'
                 };
                 
+                const annotations = [];
                 for (let i = 0; i < size; i++) {
                     for (let j = 0; j < size; j++) {
-                        layout.annotations.push({
+                        annotations.push({
                             x: j + 1,
                             y: size - i,
                             text: result[i][j].toString(),
@@ -166,6 +164,14 @@ const MathCalculus = {
                         });
                     }
                 }
+                
+                const layout = {
+                    title: '矩阵乘法结果热力图',
+                    xaxis: { title: '列索引', dtick: 1 },
+                    yaxis: { title: '行索引', dtick: 1 },
+                    annotations: annotations,
+                    showlegend: true
+                };
                 
                 return { data: [trace], layout: layout };
             }
@@ -179,7 +185,7 @@ const MathCalculus = {
             formula2: '$$\\det(A) = \\begin{vmatrix} a & b & c \\\\ d & e & f \\\\ g & h & i \\end{vmatrix} = a(ei-fh) - b(di-fg) + c(dh-eg)$$',
             parameters: [
                 { name: 'matrixSize', type: 'select', options: ['2x2', '3x3'], label: '矩阵维度', default: '2x2' },
-                { name: 'matrixA', type: 'matrix', label: '矩阵 A' }
+                { name: 'matrixA', type: 'matrix-simple', label: '矩阵 A' }
             ],
             calculate: function(params) {
                 const size = parseInt(params.matrixSize.split('x')[0]);
@@ -236,33 +242,27 @@ const MathCalculus = {
                 const size = parseInt(params.matrixSize.split('x')[0]);
                 const matrix = params.matrixA.map(row => row.map(v => parseFloat(v) || 0));
                 
-                const trace = {
-                    x: [],
-                    y: [],
-                    z: [],
-                    type: 'heatmap',
-                    colorscale: 'Cividis',
-                    showscale: true
-                };
-                
+                const xValues = [];
+                const yValues = [];
                 for (let i = 0; i < size; i++) {
-                    for (let j = 0; j < size; j++) {
-                        trace.x.push(j + 1);
-                        trace.y.push(size - i);
-                        trace.z.push(matrix[i][j]);
-                    }
+                    xValues.push(i + 1);
+                    yValues.push(size - i);
                 }
                 
-                const layout = {
-                    title: `原矩阵热力图（行列式 = ${result}）`,
-                    xaxis: { title: '列索引', dtick: 1 },
-                    yaxis: { title: '行索引', dtick: 1 },
-                    annotations: []
+                const trace = {
+                    z: matrix,
+                    x: xValues,
+                    y: yValues,
+                    type: 'heatmap',
+                    colorscale: 'Cividis',
+                    showscale: true,
+                    name: '原矩阵'
                 };
                 
+                const annotations = [];
                 for (let i = 0; i < size; i++) {
                     for (let j = 0; j < size; j++) {
-                        layout.annotations.push({
+                        annotations.push({
                             x: j + 1,
                             y: size - i,
                             text: matrix[i][j].toString(),
@@ -271,6 +271,14 @@ const MathCalculus = {
                         });
                     }
                 }
+                
+                const layout = {
+                    title: `原矩阵热力图（行列式 = ${result}）`,
+                    xaxis: { title: '列索引', dtick: 1 },
+                    yaxis: { title: '行索引', dtick: 1 },
+                    annotations: annotations,
+                    showlegend: true
+                };
                 
                 return { data: [trace], layout: layout };
             }
@@ -283,7 +291,7 @@ const MathCalculus = {
             formula: '$$A^{-1} = \\frac{1}{\\det(A)} \\text{adj}(A) = \\frac{1}{ad-bc} \\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}$$',
             parameters: [
                 { name: 'matrixSize', type: 'select', options: ['2x2'], label: '矩阵维度', default: '2x2' },
-                { name: 'matrixA', type: 'matrix', label: '矩阵 A' }
+                { name: 'matrixA', type: 'matrix-simple', label: '矩阵 A' }
             ],
             calculate: function(params) {
                 const matrix = params.matrixA.map(row => row.map(v => parseFloat(v) || 0));
@@ -326,36 +334,70 @@ const MathCalculus = {
                 return {
                     result: result,
                     steps: steps,
-                    latex: this.matrixToLatex(result)
+                    latex: MathCalculus.matrixToLatex(result)
                 };
             },
             visualize: function(result, params) {
                 const matrix = params.matrixA.map(row => row.map(v => parseFloat(v) || 0));
+                const size = matrix.length;
+                
+                const xValues = [];
+                const yValues = [];
+                for (let i = 0; i < size; i++) {
+                    xValues.push(i + 1);
+                    yValues.push(size - i);
+                }
                 
                 const trace1 = {
-                    x: [1, 2, 1, 2],
-                    y: [2, 2, 1, 1],
-                    z: [matrix[0][0], matrix[0][1], matrix[1][0], matrix[1][1]],
+                    z: matrix,
+                    x: xValues,
+                    y: yValues,
                     type: 'heatmap',
                     colorscale: 'Viridis',
-                    showscale: false
+                    showscale: true,
+                    name: '原矩阵'
                 };
                 
                 const trace2 = {
-                    x: [1, 2, 1, 2],
-                    y: [2, 2, 1, 1],
-                    z: [result[0][0], result[0][1], result[1][0], result[1][1]],
+                    z: result,
+                    x: xValues.map(v => v + size + 1),
+                    y: yValues,
                     type: 'heatmap',
                     colorscale: 'Plasma',
-                    showscale: false,
-                    xaxis: 'x2',
-                    yaxis: 'y2'
+                    showscale: true,
+                    name: '逆矩阵'
                 };
+                
+                const annotations = [];
+                for (let i = 0; i < size; i++) {
+                    for (let j = 0; j < size; j++) {
+                        annotations.push({
+                            x: j + 1,
+                            y: size - i,
+                            text: matrix[i][j].toFixed(2),
+                            showarrow: false,
+                            font: { color: 'white', size: 14 }
+                        });
+                        annotations.push({
+                            x: j + size + 2,
+                            y: size - i,
+                            text: result[i][j].toFixed(4),
+                            showarrow: false,
+                            font: { color: 'white', size: 14 }
+                        });
+                    }
+                }
                 
                 const layout = {
                     title: '原矩阵（左）与逆矩阵（右）',
-                    grid: { rows: 1, columns: 2, pattern: 'independent' },
-                    annotations: []
+                    xaxis: { 
+                        title: '',
+                        tickvals: xValues.concat(xValues.map(v => v + size + 1)),
+                        ticktext: xValues.map((v, i) => `原${v}`).concat(xValues.map((v, i) => `逆${v}`))
+                    },
+                    yaxis: { title: '行索引', dtick: 1 },
+                    annotations: annotations,
+                    showlegend: true
                 };
                 
                 return { data: [trace1, trace2], layout: layout };
@@ -369,7 +411,7 @@ const MathCalculus = {
             formula: '$$A^T = \\begin{pmatrix} a & b \\\\ c & d \\\\ e & f \\end{pmatrix}^T = \\begin{pmatrix} a & c & e \\\\ b & d & f \\end{pmatrix}$$',
             parameters: [
                 { name: 'matrixSize', type: 'select', options: ['2x2', '3x3'], label: '矩阵维度', default: '2x2' },
-                { name: 'matrixA', type: 'matrix', label: '矩阵 A' }
+                { name: 'matrixA', type: 'matrix-simple', label: '矩阵 A' }
             ],
             calculate: function(params) {
                 const size = parseInt(params.matrixSize.split('x')[0]);
@@ -399,50 +441,73 @@ const MathCalculus = {
                 return {
                     result: result,
                     steps: steps,
-                    latex: this.matrixToLatex(result)
+                    latex: MathCalculus.matrixToLatex(result)
                 };
             },
             visualize: function(result, params) {
                 const size = parseInt(params.matrixSize.split('x')[0]);
                 const matrix = params.matrixA.map(row => row.map(v => parseFloat(v) || 0));
                 
-                const trace = {
-                    x: [],
-                    y: [],
-                    z: [],
-                    type: 'heatmap',
-                    colorscale: 'Viridis',
-                    showscale: true
-                };
-                
+                const xValues = [];
+                const yValues = [];
                 for (let i = 0; i < size; i++) {
-                    for (let j = 0; j < size; j++) {
-                        trace.x.push(j + 1);
-                        trace.y.push(size - i);
-                        trace.z.push(matrix[i][j]);
-                    }
+                    xValues.push(i + 1);
+                    yValues.push(size - i);
                 }
                 
-                const layout = {
-                    title: '原矩阵热力图（转置操作将行列互换）',
-                    xaxis: { title: '列索引', dtick: 1 },
-                    yaxis: { title: '行索引', dtick: 1 },
-                    annotations: []
+                const trace1 = {
+                    z: matrix,
+                    x: xValues,
+                    y: yValues,
+                    type: 'heatmap',
+                    colorscale: 'Viridis',
+                    showscale: true,
+                    name: '原矩阵'
                 };
                 
+                const trace2 = {
+                    z: result,
+                    x: xValues.map(v => v + size + 1),
+                    y: yValues,
+                    type: 'heatmap',
+                    colorscale: 'Plasma',
+                    showscale: true,
+                    name: '转置矩阵'
+                };
+                
+                const annotations = [];
                 for (let i = 0; i < size; i++) {
                     for (let j = 0; j < size; j++) {
-                        layout.annotations.push({
+                        annotations.push({
                             x: j + 1,
                             y: size - i,
                             text: matrix[i][j].toString(),
                             showarrow: false,
                             font: { color: 'white', size: 14 }
                         });
+                        annotations.push({
+                            x: j + size + 2,
+                            y: size - i,
+                            text: result[i][j].toString(),
+                            showarrow: false,
+                            font: { color: 'white', size: 14 }
+                        });
                     }
                 }
                 
-                return { data: [trace], layout: layout };
+                const layout = {
+                    title: '原矩阵（左）与转置矩阵（右）',
+                    xaxis: { 
+                        title: '',
+                        tickvals: xValues.concat(xValues.map(v => v + size + 1)),
+                        ticktext: xValues.map((v, i) => `原${v}`).concat(xValues.map((v, i) => `转${v}`))
+                    },
+                    yaxis: { title: '行索引', dtick: 1 },
+                    annotations: annotations,
+                    showlegend: true
+                };
+                
+                return { data: [trace1, trace2], layout: layout };
             }
         },
         
@@ -454,7 +519,7 @@ const MathCalculus = {
             formula2: '$$\\det(A - \\lambda I) = 0$$',
             parameters: [
                 { name: 'matrixSize', type: 'select', options: ['2x2'], label: '矩阵维度', default: '2x2' },
-                { name: 'matrixA', type: 'matrix', label: '矩阵 A' }
+                { name: 'matrixA', type: 'matrix-simple', label: '矩阵 A' }
             ],
             calculate: function(params) {
                 const matrix = params.matrixA.map(row => row.map(v => parseFloat(v) || 0));
@@ -509,32 +574,46 @@ const MathCalculus = {
             },
             visualize: function(result, params) {
                 const matrix = params.matrixA.map(row => row.map(v => parseFloat(v) || 0));
+                const size = matrix.length;
                 const a = matrix[0][0], b = matrix[0][1];
                 const c = matrix[1][0], d = matrix[1][1];
                 
+                const xValues = [];
+                const yValues = [];
+                for (let i = 0; i < size; i++) {
+                    xValues.push(i + 1);
+                    yValues.push(size - i);
+                }
+                
                 const trace = {
-                    x: [],
-                    y: [],
-                    z: [],
+                    z: matrix,
+                    x: xValues,
+                    y: yValues,
                     type: 'heatmap',
                     colorscale: 'Viridis',
-                    showscale: true
+                    showscale: true,
+                    name: '原矩阵'
                 };
                 
-                trace.x = [1, 2, 1, 2];
-                trace.y = [2, 2, 1, 1];
-                trace.z = [a, b, c, d];
+                const annotations = [];
+                for (let i = 0; i < size; i++) {
+                    for (let j = 0; j < size; j++) {
+                        annotations.push({
+                            x: j + 1,
+                            y: size - i,
+                            text: matrix[i][j].toString(),
+                            showarrow: false,
+                            font: { color: 'white', size: 16 }
+                        });
+                    }
+                }
                 
                 const layout = {
                     title: `矩阵热力图（迹 = ${a+d}, 行列式 = ${a*d - b*c}）`,
                     xaxis: { title: '列索引', dtick: 1 },
                     yaxis: { title: '行索引', dtick: 1 },
-                    annotations: [
-                        { x: 1, y: 2, text: a.toString(), showarrow: false, font: { color: 'white', size: 16 } },
-                        { x: 2, y: 2, text: b.toString(), showarrow: false, font: { color: 'white', size: 16 } },
-                        { x: 1, y: 1, text: c.toString(), showarrow: false, font: { color: 'white', size: 16 } },
-                        { x: 2, y: 1, text: d.toString(), showarrow: false, font: { color: 'white', size: 16 } }
-                    ]
+                    annotations: annotations,
+                    showlegend: true
                 };
                 
                 return { data: [trace], layout: layout };
@@ -1029,6 +1108,9 @@ const MathCalculus = {
                             .replace(/\^/g, '**')
                             .replace(/sin/g, 'Math.sin')
                             .replace(/cos/g, 'Math.cos')
+                            .replace(/tan/g, 'Math.tan')
+                            .replace(/log/g, 'Math.log')
+                            .replace(/ln/g, 'Math.log')
                             .replace(/exp/g, 'Math.exp')
                             .replace(/sqrt/g, 'Math.sqrt');
                         return eval(safeExpr);
@@ -1333,6 +1415,9 @@ const MathCalculus = {
                             .replace(/\^/g, '**')
                             .replace(/sin/g, 'Math.sin')
                             .replace(/cos/g, 'Math.cos')
+                            .replace(/tan/g, 'Math.tan')
+                            .replace(/log/g, 'Math.log')
+                            .replace(/ln/g, 'Math.log')
                             .replace(/exp/g, 'Math.exp')
                             .replace(/sqrt/g, 'Math.sqrt');
                         return eval(safeExpr);
@@ -1898,6 +1983,9 @@ const MathCalculus = {
                             .replace(/\^/g, '**')
                             .replace(/sin/g, 'Math.sin')
                             .replace(/cos/g, 'Math.cos')
+                            .replace(/tan/g, 'Math.tan')
+                            .replace(/log/g, 'Math.log')
+                            .replace(/ln/g, 'Math.log')
                             .replace(/exp/g, 'Math.exp')
                             .replace(/sqrt/g, 'Math.sqrt');
                         return eval(safeExpr);
@@ -2153,6 +2241,8 @@ const App = {
         
         this.generateInputForm(formula);
         
+        this.syncMatrixSize(formula);
+        
         if (window.MathJax && window.MathJax.typeset) {
             window.MathJax.typeset([descriptionElement]);
         }
@@ -2177,6 +2267,12 @@ const App = {
                     html += '<option value="' + option + '" ' + selected + '>' + option + '</option>';
                 });
                 html += '</select>';
+            } else if (param.type === 'matrix-simple') {
+                html += '<div class="matrix-input-wrapper matrix-simple-wrapper" data-matrix-name="' + param.name + '">';
+                html += '<div class="matrix-input" id="matrix-' + param.name + '">';
+                html += this.generateMatrixInputs(2, param.name);
+                html += '</div>';
+                html += '</div>';
             } else if (param.type === 'matrix') {
                 html += '<div class="matrix-input-wrapper" data-matrix-name="' + param.name + '">';
                 html += '<div class="matrix-size">';
@@ -2245,6 +2341,37 @@ const App = {
         });
     },
     
+    syncMatrixSize: function(formula) {
+        const self = this;
+        
+        let matrixSizeSelect = null;
+        let matrixSizeIndex = -1;
+        
+        formula.parameters.forEach((param, index) => {
+            if (param.name === 'matrixSize' && param.type === 'select') {
+                matrixSizeSelect = document.getElementById('param-' + index);
+                matrixSizeIndex = index;
+            }
+        });
+        
+        if (matrixSizeSelect) {
+            const updateMatrixSize = function() {
+                const sizeStr = matrixSizeSelect.value;
+                const size = parseInt(sizeStr.split('x')[0]);
+                
+                document.querySelectorAll('.matrix-simple-wrapper').forEach(wrapper => {
+                    const matrixDiv = wrapper.querySelector('.matrix-input');
+                    const matrixName = wrapper.dataset.matrixName;
+                    matrixDiv.innerHTML = self.generateMatrixInputs(size, matrixName);
+                });
+            };
+            
+            updateMatrixSize();
+            
+            matrixSizeSelect.addEventListener('change', updateMatrixSize);
+        }
+    },
+    
     collectParameters: function() {
         const params = {};
         const formula = this.currentFormula;
@@ -2252,7 +2379,34 @@ const App = {
         if (!formula) return params;
         
         formula.parameters.forEach((param, index) => {
-            if (param.type === 'matrix') {
+            if (param.type === 'matrix-simple') {
+                const wrapper = document.querySelector('.matrix-input-wrapper[data-matrix-name="' + param.name + '"]');
+                if (wrapper) {
+                    let size = 2;
+                    
+                    formula.parameters.forEach((p, i) => {
+                        if (p.name === 'matrixSize' && p.type === 'select') {
+                            const select = document.getElementById('param-' + i);
+                            if (select) {
+                                size = parseInt(select.value.split('x')[0]);
+                            }
+                        }
+                    });
+                    
+                    const matrix = [];
+                    
+                    for (let i = 0; i < size; i++) {
+                        const row = [];
+                        for (let j = 0; j < size; j++) {
+                            const input = wrapper.querySelector('input[data-row="' + i + '"][data-col="' + j + '"]');
+                            row.push(input ? input.value : '0');
+                        }
+                        matrix.push(row);
+                    }
+                    
+                    params[param.name] = matrix;
+                }
+            } else if (param.type === 'matrix') {
                 const wrapper = document.querySelector('.matrix-input-wrapper[data-matrix-name="' + param.name + '"]');
                 if (wrapper) {
                     const sizeSelect = wrapper.querySelector('.matrix-size-select');
@@ -2312,10 +2466,12 @@ const App = {
         }
         
         const params = this.collectParameters();
+        console.log('收集到的参数:', params);
         this.currentParams = params;
         
         try {
             const result = this.currentFormula.calculate(params);
+            console.log('计算结果:', result);
             
             this.displayResult(result);
             
@@ -2325,6 +2481,7 @@ const App = {
         } catch (error) {
             console.error('计算错误:', error);
             this.displayError('计算过程中发生错误：' + error.message);
+            alert('计算错误：' + error.message);
         }
     },
     
@@ -2372,17 +2529,22 @@ const App = {
     },
     
     displayError: function(message) {
+        const resultSection = document.getElementById('result-section');
         const resultDisplay = document.getElementById('result-display');
+        resultSection.style.display = 'block';
         resultDisplay.innerHTML = '<div class="error-message">' + message + '</div>';
     },
     
     visualize: function(result, params) {
         if (!this.currentFormula.visualize) {
+            console.log('当前公式没有可视化函数');
             return;
         }
         
         try {
+            console.log('开始可视化，result:', result, 'params:', params);
             const plotData = this.currentFormula.visualize(result.result, params);
+            console.log('生成的图表数据:', plotData);
             
             const placeholder = document.getElementById('visualization-placeholder');
             const chartDiv = document.getElementById('plotly-chart');
@@ -2391,8 +2553,10 @@ const App = {
             chartDiv.style.display = 'block';
             
             Plotly.newPlot('plotly-chart', plotData.data, plotData.layout, {responsive: true});
+            console.log('Plotly图表渲染完成');
         } catch (error) {
             console.error('可视化错误:', error);
+            alert('可视化错误：' + error.message);
         }
     }
 };
